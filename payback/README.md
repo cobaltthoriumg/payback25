@@ -1,61 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Payback25 - Schuldenverwaltung für Gruppen
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Überblick
 
-## About Laravel
+Payback25 ist eine Schuldenverwaltungssoftware für mehrere Nutzer in Gruppen. Die Anwendung ermöglicht es Nutzern, Schulden in Gruppen zu verwalten und zu begleichen.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Nutzerverwaltung
+- Nutzer können sich mit Name, E-Mail + Passwort registrieren und anmelden.
+- Die E-Mail muss unique sein.
+- Es gibt keine 2FA, der Nutzer kann sich sofort anmelden.
+- Passwort-Reset-Funktion: Nicht im MVP enthalten.
+- E-Mail-Verifizierung: Nicht im MVP enthalten.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Gruppenverwaltung
+- Ein Nutzer kann eine Gruppe erstellen.
+- Je Gruppe wird ein Link generiert und allen Nutzern angezeigt. Wenn dieser Link aufgerufen wird, bekommt ein eingeloggter Nutzer die Möglichkeit, der Gruppe beizutreten.
+- Alle Nutzer einer Gruppe haben volle Rechte und können alle Aktionen auf der Gruppe ausführen.
+- Gruppenlink: Wird als Hash aus dem Gruppennamen und dem Datum + Uhrzeit der Generierung erstellt. Es gibt keine Gültigkeitsdauer. Sobald der Link neu generiert wird, werden alte Links ungültig.
 
-## Learning Laravel
+### Aktionen auf einer Gruppe
+- **Nutzer einladen**: Jedem Nutzer wird der Link angezeigt. Der Link ist statisch und nicht erratbar (mit Token der neu generiert werden kann).
+- **Gruppe löschen**: Die Gruppe wird gelöscht.
+- **Gruppe verlassen**: Der Nutzer verlässt die Gruppe; verlässt der letzte Nutzer die Gruppe, wird die Gruppe gelöscht.
+- **Ausgabe hinzufügen**:
+  - Eine Ausgabe ist ein Kauf, dessen Betrag gleichmäßig zwischen allen Mitgliedern der Gruppe aufgeteilt wird.
+  - Eine Ausgabe hat folgende Felder:
+    - Zahlende Person: Auswahl zwischen Gruppenmitgliedern; default ist der angemeldete Nutzer.
+    - Betrag.
+    - Währung: Liste aller großen Währungen; Default EUR.
+    - Text: eine Beschreibung.
+- **Ausgaben bearbeiten oder löschen**: Ja, dies soll möglich sein.
+- **Schulden begleichen**: Alle Schulden in der Gruppe werden beglichen. Die Schulden werden stets neu berechnet, wenn die Gruppe aufgerufen wird. Die Beträge, die einzelne Nutzer einzelnen anderen Nutzern schulden, werden nicht persistiert.
+- Die Aktionen Schulden begleichen, Gruppe löschen und Gruppe verlassen benötigen eine Bestätigung.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Angezeigte Informationen je Gruppe
+- "Alle Gruppen" Link zur Liste der Gruppen.
+- Schulden aller Nutzer an den angemeldeten Nutzer, aufgelistet je Währung.
+- Liste der Ausgaben.
+- Button "Gruppenmitglieder" -> Link zur Liste aller Gruppenmitglieder.
+- Unten eine Liste der Aktionen.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Ansicht der Gruppenmitglieder
+- Liste der Nutzernamen und E-Mails.
+- "Zurück zur Gruppe" Button.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Ansicht nach dem Anmelden
+- Liste aller Gruppen mit der Möglichkeit, eine Gruppe aufzurufen.
+- Button "Gruppe erstellen".
 
-## Laravel Sponsors
+### Gruppen-Einladung-Seite
+- Wird nur angemeldeten Nutzern angezeigt.
+- Button: "Der Gruppe beitreten".
+- Button: "Liste meiner Gruppen".
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Startseite (nicht angemeldet)
+- "Anmelden" - Link zur Anmeldeseite.
+- "Registrieren" - Link zur Registrierungsseite.
 
-### Premium Partners
+### Startseite (angemeldet)
+- Das ist die gleiche Seite wie die Liste der Gruppen.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Gruppenseite
+- Liste aller Gruppen des angemeldeten Nutzers.
 
-## Contributing
+### Registrierungsseite
+- Seite zur Eingabe der Registrierungsdaten.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Anmeldeseite
+- E-Mail, Passwort.
 
-## Code of Conduct
+## Technische Basis
+- **Backend**: Laravel
+- **Frontend**: Vue.js
+- **Authentifizierung**: Laravel Breeze
+- **Datenbank**: MariaDB
+- **Build-Tool**: Vite
+- **Styling**: Tailwind CSS
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Technische Anforderungen
+- Datenbank: MariaDB.
+- API für zukünftige Erweiterungen: REST-API (optional für zukünftige Erweiterungen).
