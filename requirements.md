@@ -72,6 +72,14 @@ Das Layout ist streng Mobile-First.
 ### Anmeldeseite
 - E-Mail, Passwort.
 
+## Technische Basis
+- **Backend**: Laravel
+- **Frontend**: Vue.js
+- **Authentifizierung**: Laravel Breeze
+- **Datenbank**: MariaDB
+- **Build-Tool**: Vite
+- **Styling**: Tailwind CSS
+
 ## Technische Anforderungen
 - Datenbank: MariaDB.
 - API für zukünftige Erweiterungen: REST-API (optional für zukünftige Erweiterungen).
