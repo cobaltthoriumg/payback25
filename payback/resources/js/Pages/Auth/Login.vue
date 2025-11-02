@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import SecondaryLinkButton from '@/Components/SecondaryLinkButton.vue';
 
 defineProps({
     canResetPassword: {
@@ -79,12 +80,19 @@ const submit = () => {
             </div>
 
             <div class="mt-4 flex items-center justify-end">
+                <SecondaryLinkButton
+                    :as="a"
+                    :href="route('register')"
+                >
+                    Registrieren
+                </SecondaryLinkButton>
+                
                 <Link
                     v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ms-4"
                 >
-                    Forgot your password?
+                    Passwort vergessen
                 </Link>
 
                 <PrimaryButton
@@ -92,7 +100,7 @@ const submit = () => {
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Log in
+                    Anmelden
                 </PrimaryButton>
             </div>
         </form>

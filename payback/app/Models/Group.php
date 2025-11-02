@@ -12,10 +12,8 @@ class Group extends Model
     protected $fillable = [
         'name',
         'invitation_token',
-        'created_by',
     ];
 
-    // Getter and Setter for name
     public function getName()
     {
         return $this->name;
@@ -26,7 +24,6 @@ class Group extends Model
         $this->name = $value;
     }
 
-    // Getter and Setter for invitation_token
     public function getInvitationToken()
     {
         return $this->invitation_token;
@@ -37,15 +34,14 @@ class Group extends Model
         $this->invitation_token = $value;
     }
 
-    // Getter and Setter for created_by
-    public function getCreatedBy()
+    public function getId(): string
     {
-        return $this->created_by;
+        return $this->id;
     }
 
-    public function setCreatedBy($value)
+    public function setId(string $id)
     {
-        $this->created_by = $value;
+        $this->id = $id;
     }
 
     public function members()
@@ -56,10 +52,5 @@ class Group extends Model
     public function expenses()
     {
         return $this->hasMany(Expense::class);
-    }
-
-    public function creator()
-    {
-        return $this->belongsTo(User::class, 'created_by');
     }
 }

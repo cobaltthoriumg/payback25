@@ -12,9 +12,9 @@ class GroupMember extends Model
     protected $fillable = [
         'group_id',
         'user_id',
+        'is_admin',
     ];
 
-    // Getter and Setter for group_id
     public function getGroupId()
     {
         return $this->group_id;
@@ -25,7 +25,6 @@ class GroupMember extends Model
         $this->group_id = $value;
     }
 
-    // Getter and Setter for user_id
     public function getUserId()
     {
         return $this->user_id;
@@ -34,6 +33,16 @@ class GroupMember extends Model
     public function setUserId($value)
     {
         $this->user_id = $value;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
+    }
+
+    public function setIsAdmin(bool $value)
+    {
+        $this->is_admin = $value;
     }
 
     public function group()
